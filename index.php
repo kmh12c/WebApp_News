@@ -39,8 +39,8 @@
         $result = $link->query("INSERT INTO users (firstName,lastName,email,phrase,admin) VALUES ('$fname', '$lname', '$email', '$password', 0)");
 
         $cookieValue = crypt($email,"itsrainingtacos");
-        setcookie("NewsAppAccess", $email, time()+60);  /* expire in 1 hour 3600*/
-        setcookie($email, $cookieValue, time()+60);  /* expire in 1 hour */
+        setcookie("NewsAppAccess", $email, time()+180);  /* expire in 1 hour 3600*/
+        setcookie($email, $cookieValue, time()+180);  /* expire in 1 hour */
         $loggedin = true;
 
         if(!$result)
