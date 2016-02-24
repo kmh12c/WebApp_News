@@ -1,20 +1,37 @@
 <?php
+    /**************************
+    *
+    * Database Connections
+    *
+    ***************************/
+    $link = new mysqli("localhost","root","","newsAppDB");
 
-$loggedIn=false;
-if(isset($_COOKIE["NewsAppAccess"]))
-{
-    $name = $_COOKIE["NewsAppAccess"];
-    $cryptedCookie = $_COOKIE[$name];
-    $cryptedName = crypt($name,"itsrainingtacos");
-    if($cryptedCookie == $cryptedName)
-        $loggedIn = true;
-}
+    if ($link->connect_errno) {
+        printf("Connect failed: %s\n", $link->connect_error);
+        exit();
+    }
 
-if(!$loggedIn){
-    header('Location: index.php');
-}
+    /**************************
+    *
+    * Database interactions
+    *
+    ***************************/
 
-if($action == "add_story")
+    $loggedIn=false;
+    if(isset($_COOKIE["NewsAppAccess"]))
+    {
+        $name = $_COOKIE["NewsAppAccess"];
+        $cryptedCookie = $_COOKIE[$name];
+        $cryptedName = crypt($name,"itsrainingtacos");
+        if($cryptedCookie == $cryptedName)
+            $loggedIn = true;
+    }
+
+    if(!$loggedIn){
+        header('Location: index.php');
+    }
+
+    if($action == "add_story")
     {
         $title = $_POST["title"];
         $content = $_POST["content"];
@@ -26,18 +43,6 @@ if($action == "add_story")
         if(!$result)
             die ('Can\'t add story because: ' . $link->error);
     }
-/**************************
-*
-* Database Connections
-*
-***************************/
-$link = new mysqli("localhost","root","","NewsAppDB");
-
-
-if ($link->connect_errno) {
-    printf("Connect failed: %s\n", $link->connect_error);
-    exit();
-}
 
 ?>
 <html lang="en">
@@ -45,8 +50,8 @@ if ($link->connect_errno) {
     <title>My News App</title>
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../WebApp_News/css/reset.css">
+    <link rel="stylesheet" href="../WebApp_News/css/style.css">
     <link href="../WebApp_News/css/dashboard.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="js/main.js"></script>
