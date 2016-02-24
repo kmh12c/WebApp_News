@@ -35,7 +35,8 @@ $num_approved = mysqli_num_rows($publishedStories);
 <head>
     <title>My News App</title>
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../WebApp_News/css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="../WebApp_News/css/style.css">
+    <link href="../WebApp_News/css/dashboard.css" rel="stylesheet">
     <script>
     </script>
 </head>
@@ -44,18 +45,13 @@ $num_approved = mysqli_num_rows($publishedStories);
         <div class="header">
             <nav>
                 <ul class="main-nav nav nav-pills pull-right">
-                    <?php
-                    if($row["admin"])
-                    {?>
-                        <li role="presentation"><a class="cd-signin" href="dashboard.php"> Dashboard</a></li><?php
-                    }?>
+                    <li role="presentation"><a class="cd-signin" href="dashboard.php"> Dashboard</a></li>
                     <li role="presentation"><a class="cd-signin" href="index.php"> Sign Out</a></li>
                 </ul>
             </nav>
-            <a href="index.php"><h1 class="text-muted"><span class="glyphicon glyphicon-globe"></span> My News App</h1></a>
+            <a href="main.php"><h1 class="text-muted"><span class="glyphicon glyphicon-globe"></span> My News App</h1></a>
         </div>
         <div class="main">
-            <div class="myContainer">
                 <h3>Published Stories</h3>
                 <?php
                     if ($num_approved > 0) 
@@ -70,7 +66,6 @@ $num_approved = mysqli_num_rows($publishedStories);
                         }
                     }
                 ?>
-            </div>
         </div>
         <footer class="footer">
             <p>&copy; Austin Graham and Kayla Holcomb 2016</p>

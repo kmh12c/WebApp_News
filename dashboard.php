@@ -22,6 +22,17 @@ if ($link->connect_errno) {
     exit();
 }
 
+$admin=false;
+$email = $_COOKIE["NewsAppAccess"];
+$isAdmin = $link->query("SELECT * FROM users WHERE email='$email'");
+$num_rows = mysqli_num_rows($isAdmin);
+ if ($num_rows > 0){
+    $row = $isAdmin->fetch_assoc();
+    if($row["admin"]==1){
+        $admin=true;
+    }
+}
+
 $submittedStories = $link->query("SELECT * FROM stories WHERE approved=0");
 if(!$submittedStories){
     die ('Can\'t query users because: ' . $link->error);
@@ -103,14 +114,17 @@ if($action == "add_story")
             <nav>
                 <ul class="main-nav nav nav-pills pull-right">
                     <li role="presentation"><a class="cd-signin" href="main.php"> Home</a></li>
-                    <li role="presentation"><a class="cd-signin" href="index.php"> Sign Out</a></li>
+                    <li role="presentation"><a class="cd-signin" href="logOut.php"> Sign Out</a></li>
                 </ul>
             </nav>
-            <a href="index.php"><h1 class="text-muted"><span class="glyphicon glyphicon-globe"></span> My News App</h1></a>
+            <a href="main.php"><h1 class="text-muted"><span class="glyphicon glyphicon-globe"></span> My News App</h1></a>
         </div>
         <div class="main">
             <h1>Story Manager</h1>
             <div class = "storyManager">
+                <?php
+                if($admin){
+                ?>
                 <h3>Active Stories</h3>
                 <table class="table table-hover storyTable">
                     <thead>
@@ -149,6 +163,9 @@ if($action == "add_story")
                     <tbody>
                     </tbody>
                 </table>
+                <?php
+                }
+                ?>
                 <h3>Submitted Stories</h3>
                 <table class="table table-hover storyTable">
                     <thead>
