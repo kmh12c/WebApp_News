@@ -32,7 +32,8 @@ if ($link->connect_errno) {
     exit();
 }
 
-$publishedStories = $link->query("SELECT * FROM stories WHERE approved=1");
+
+$publishedStories = $link->query("SELECT * FROM stories WHERE approved=1 ORDER BY submitDate");
 if(!$publishedStories){
     die ('Can\'t query stories because: ' . $link->error);
 }
