@@ -33,6 +33,13 @@ if ($link->connect_errno) {
     exit();
 }
 
+$submittedStories = $link->query("SELECT * FROM stories WHERE approved=0");
+if(!$submittedStories){
+    die ('Can\'t query users because: ' . $link->error);
+}
+
+$num_submitted = mysqli_num_rows($submittedStories);
+
 
 $action="";
 if(isset($_POST["action"])){
@@ -41,7 +48,20 @@ if(isset($_POST["action"])){
 
 if($action == "add_story")
     {
-        print("Adding");
+        $title = $_POST["title"];
+        $content = $_POST["content"];
+        $email = $_COOKIE["NewsAppAccess"];
+        
+        $title = htmlentities($link->real_escape_string($title));
+        $content = htmlentities($link->real_escape_string($content));
+        $result = $link->query("INSERT INTO stories (name,storyText,submitter,approved) VALUES ('$title', '$content', '$email', 0)");
+
+        if(!$result)
+            die ('Can\'t add story because: ' . $link->error);
+    }
+
+    if($action == "approve")
+    {
         $title = $_POST["title"];
         $content = $_POST["content"];
         $email = $_COOKIE["NewsAppAccess"];
@@ -124,10 +144,15 @@ if($action == "add_story")
                         <th>Approve</th>
                       </tr>
                     </thead>
+                    <?php
+                        if ($num_submitted > 0) 
+                        {
+                            while( $row = $submittedStories->fetch_assoc()){
+                        ?>
                         <tr>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
+                            <td><?php print($row["name"])?></td>
+                            <td><?php print($row["submitter"])?></td>
+                            <td><?php print($row["submitDate"])?></td>
                             <td class="main-nav">
                                 <a class="btn btn-xs btn-primary viewStory cd-signin" href="#0" role="button">View Story</a>
                             </td>
@@ -135,6 +160,10 @@ if($action == "add_story")
                                 <form name="approve" action="#"><input type="submit" value="Approve" class="btn btn-xs btn-success"/></form>
                             </td>
                         </tr>
+                        <?php
+                            }
+                        }
+                        ?>
                     <tbody>
                     </tbody>
                 </table>
@@ -152,6 +181,7 @@ if($action == "add_story")
                     <form class="cd-form" method="post" action="#">
                         <p class="fieldset"><input class="full-width has-padding has-border" id="title" name="title" type="text" placeholder="Story Title"></p>
                         <p class="fieldset"><input class="full-width has-padding has-border content" id="content" name="content" type="text" placeholder="Your story goes here."></p>
+                        <p class="fieldset"><input type="hidden" name="action" value="add_story"/></p>
                         <p class="fieldset"><input class="full-width" type="submit" value="Submit"></p>
                     </form>
                 </div>
