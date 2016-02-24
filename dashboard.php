@@ -57,7 +57,7 @@ if($action == "add_story")
         
         $title = htmlentities($link->real_escape_string($title));
         $content = htmlentities($link->real_escape_string($content));
-        $result = $link->query("INSERT INTO stories (name,storyText,submitter,approved) VALUES ('$title', '$content', '$email', 0)");
+        $result = $link->query("INSERT INTO stories (name,storyText,submitter,approved) VALUES ('$title', '$content', '$email', 1)");//THIS SHOULD BE EDIT QUERY
 
         if(!$result)
             die ('Can\'t add story because: ' . $link->error);
