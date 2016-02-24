@@ -57,6 +57,7 @@ $num_approved = mysqli_num_rows($publishedStories);
         <div class="header">
             <nav>
                 <ul class="main-nav nav nav-pills pull-right">
+                    <li role="presentation"><a class="cd-signin" href="dashboard.php"> Dashboard</a></li>
                     <li role="presentation"><a class="cd-signin" href="index.php"> Sign Out</a></li>
                 </ul>
             </nav>
