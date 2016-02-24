@@ -229,7 +229,7 @@ if($action == "add_story")
                 <div id="cd-login"> <!-- log in form -->
                     <form class="cd-form" method="post" action="#">
                         <p class="fieldset"><input class="full-width has-padding has-border" id="title" name="title" type="text" placeholder="Story Title"></p>
-                        <p class="fieldset"><input class="full-width has-padding has-border content" id="content" name="content" type="text" placeholder="Your story goes here."></p>
+                        <p class="fieldset"><textarea class="full-width has-padding has-border content" id="content" name="content" type="text" placeholder="Your story goes here."></textarea></p>
                         <p class="fieldset"><input type="hidden" name="action" value="add_story"/></p>
                         <p class="fieldset"><input class="full-width" type="submit" value="Submit"></p>
                     </form>
