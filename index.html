@@ -15,7 +15,7 @@
     * Database Connections
     *
     ***************************/
-    $link = new mysqli("localhost","root","","user_db");
+    $link = new mysqli("localhost","root","","newsAppDB");
 
     if ($link->connect_errno) {
         printf("Connect failed: %s\n", $link->connect_error);
@@ -28,11 +28,11 @@
     ***************************/
 
     $loggedin = false;
-    if(isset($_COOKIE["AppName"]))
+    if(isset($_COOKIE["NewsAppAccess"]))
     {
-        $name = $_COOKIE["AppName"];
-        $cryptedCookie = $_COOKIE[$name];
-        $cryptedName = crypt($name,"ilovetacos");
+        $email = $_COOKIE["NewsAppAccess"];
+        $cryptedCookie = $_COOKIE[$email];
+        $cryptedName = crypt($email,"itsrainingtacos");
         if($cryptedCookie == $cryptedName)
             $loggedin = true;
     }
@@ -44,32 +44,41 @@
     else
         $action = "none";
 
-    $message = "";
+    $message = ""
 
     if($action == "add_user")
     {
-        $name = $_POST["name"];
+        $fname = $_POST["fname"];
+        $lname = $_POST["lname"];
+        $email = $_POST["email"];
         $password = $_POST["password"];
         
-        $name = htmlentities($link->real_escape_string($name));
+        $fname = htmlentities($link->real_escape_string($fname));
+        $lname = htmlentities($link->real_escape_string($lname));
+        $email = htmlentities($link->real_escape_string($email));
         $password = htmlentities($link->real_escape_string($password));
-        $password = crypt ($password,"ilovetacos");
-        $result = $link->query("INSERT INTO users (name, password) VALUES ('$name', '$password')");
+        $password = crypt ($password,"itsrainingtacos");
+        $result = $link->query("INSERT INTO users (firstName,lastName,email,phrase,admin) VALUES ('$fname', '$lname', '$email', '$password', 0)");
+
+        $cookieValue = crypt($email,"itsrainingtacos");
+        setcookie("NewsAppAccess", $email, time()+3600);  /* expire in 1 hour */
+        setcookie($email, $cookieValue, time()+3600);  /* expire in 1 hour */
+        $loggedin = true;
+
         if(!$result)
-            die ('Can\'t query users because: ' . $link->error);
+            die ('Can\'t add user because: ' . $link->error);
         else
-            $message = "User Added";
     }
     elseif ($action == "login") {
-        $name = $_POST["name"];
+        $email = $_POST["email"];
         $password = $_POST["password"];
         
-        $name = htmlentities($link->real_escape_string($name));
+        $email = htmlentities($link->real_escape_string($email));
         $password = htmlentities($link->real_escape_string($password));
         
-        $password = crypt ($password,"ilovetacos");
+        $password = crypt ($password,"itsrainingtacos");
         
-        $result = $link->query("SELECT * FROM users WHERE name='$name'");
+        $result = $link->query("SELECT * FROM users WHERE email='$email'");
         if(!$result)
             die ('Can\'t query users because: ' . $link->error);
 
@@ -79,18 +88,17 @@
           $row = $result->fetch_assoc();
           if($row["password"] == $password)
           {
-            $message = "User $name Logged in!";
-            $cookieValue = crypt($name,"ilovetacos");
-            setcookie("AppName", $name, time()+3600);  /* expire in 1 hour */
-            setcookie($name, $cookieValue, time()+3600);  /* expire in 1 hour */
+            $cookieValue = crypt($email,"itsrainingtacos");
+            setcookie("NewsAppAccess", $email, time()+3600);  /* expire in 1 hour */
+            setcookie($email, $cookieValue, time()+3600);  /* expire in 1 hour */
             $loggedin = true;
           }
           else
-            $message = "Password for user $name incorrect!";
+            $message = "Password for user $email incorrect!";
         }
         else {
           // do something else
-          $message = "No user $name found!";
+          $message = "No user $email found!";
         }
     }
 ?>
@@ -186,20 +194,21 @@
                 </ul>
                 <div id="cd-login"> <!-- log in form -->
                     <form class="cd-form" name="signIn" onsubmit="return validateSignIn()" method="post" action="#">
-                        <p class="fieldset"><input class="full-width has-padding has-border" id="email" type="email" placeholder="E-mail"></p>
-                        <p class="fieldset"><input class="full-width has-padding has-border" id="password" type="password"  placeholder="Password"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="email" name="email" type="email" placeholder="E-mail"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="password" name="password" type="password"  placeholder="Password"></p>
                         <p class="fieldset"><input class="full-width" type="submit" value="Login"></p>
+                        <input type="hidden" name="action" value="login">
                     </form>
                 </div>
                 <div id="cd-signup"> <!-- sign up form -->
                     <form class="cd-form" name="signUp" onsubmit="return validateSignUp()" method="post" action="#">
-                        <p class="fieldset"><input class="full-width has-padding has-border" id="fname" type="text" placeholder="First Name"></p>
-                        <p class="fieldset"><input class="full-width has-padding has-border" id="lname" type="text" placeholder="Last Name"></p>
-                        <p class="fieldset"><input class="full-width has-padding has-border" id="email" type="email" placeholder="E-mail"></p>
-                        <p class="fieldset"><input class="full-width has-padding has-border" id="password" type="password"  placeholder="Password"></p>
-                        <p class="fieldset"><input class="full-width has-padding has-border" id="password2" type="password"  placeholder="Retype Password"></p>
-
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="fname" name="fname" type="text" placeholder="First Name"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="lname" name="lname" type="text" placeholder="Last Name"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="email" name="email" type="email" placeholder="E-mail"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="password" name="password" type="password"  placeholder="Password"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="password2" name="password2" type="password"  placeholder="Retype Password"></p>
                         <p class="fieldset"><input class="full-width has-padding" type="submit" value="Create Account"></p>
+                        <input type="hidden" name="action" value="add_user">
                     </form>
                 </div>
             </div> <!-- cd-user-modal-container -->
