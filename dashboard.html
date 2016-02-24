@@ -1,4 +1,33 @@
-<!DOCTYPE html>
+<?php
+
+$loggedIn=false;
+if(isset($_COOKIE["NewsAppAccess"]))
+{
+    $name = $_COOKIE["NewsAppAccess"];
+    $cryptedCookie = $_COOKIE[$name];
+    $cryptedName = crypt($name,"itsrainingtacos");
+    if($cryptedCookie == $cryptedName)
+        $loggedIn = true;
+}
+
+if(!$loggedIn){
+    header('Location: index.html');
+}
+
+/**************************
+*
+* Database Connections
+*
+***************************/
+$link = new mysqli("localhost","root","","user_db");
+
+
+if ($link->connect_errno) {
+    printf("Connect failed: %s\n", $link->connect_error);
+    exit();
+}
+
+?>
 <html lang="en">
 <head>
     <title>My News App</title>
@@ -19,11 +48,11 @@
             <nav>
                 <ul class="main-nav nav nav-pills pull-right">
                     <li role="presentation"><a class="cd-dash" href="#0"> Dashboard</a></li>
-                    <li role="presentation"><a class="cd-signin" href="#0"> Sign Out</a></li>
+                    <li role="presentation"><a class="cd-signin" href="index.html"> Sign Out</a></li>
 
                 </ul>
             </nav>
-            <h1 class="text-muted"><span class="glyphicon glyphicon-globe"></span> My News App</h1>
+            <a href="index.html"><h1 class="text-muted"><span class="glyphicon glyphicon-globe"></span> My News App</h1></a>
         </div>
         <div class="main">
             <h1>Story Manager</h1>
