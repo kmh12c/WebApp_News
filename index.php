@@ -16,18 +16,6 @@
     *
     ***************************/
 
-    $loggedin = false;
-    if(isset($_COOKIE["NewsAppAccess"]))
-    {
-        $email = $_COOKIE["NewsAppAccess"];
-        $cryptedCookie = $_COOKIE[$email];
-        $cryptedName = crypt($email,"itsrainingtacos");
-        if($cryptedCookie == $cryptedName)
-            $loggedin = true;
-    }
-    else
-        $action = "none";
-
     if(isset($_REQUEST["action"]))
         $action = $_REQUEST["action"];
     else
@@ -74,10 +62,11 @@
             die ('Can\'t query users because: ' . $link->error);
 
         $num_rows = mysqli_num_rows($result);
+        print($num_rows);
         if ($num_rows > 0) 
         {
           $row = $result->fetch_assoc();
-          if($row["password"] == $password)
+          if($row["phrase"] == $password)
           {
             $cookieValue = crypt($email,"itsrainingtacos");
             setcookie("NewsAppAccess", $email, time()+3600);  /* expire in 1 hour */

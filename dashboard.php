@@ -19,7 +19,7 @@ if(!$loggedIn){
 * Database Connections
 *
 ***************************/
-$link = new mysqli("localhost","root","","user_db");
+$link = new mysqli("localhost","root","","NewsAppDB");
 
 
 if ($link->connect_errno) {
