@@ -1,4 +1,19 @@
 <?php
+
+    $loggedIn=false;
+    if(isset($_COOKIE["NewsAppAccess"]))
+    {
+        $name = $_COOKIE["NewsAppAccess"];
+        $cryptedCookie = $_COOKIE[$name];
+        $cryptedName = crypt($name,"itsrainingtacos");
+        if($cryptedCookie == $cryptedName)
+            $loggedIn = true;
+    }
+
+    if($loggedIn){
+        header('Location: dashboard.php');
+    }
+
     /**************************
     *
     * Database Connections
@@ -42,7 +57,7 @@
         $cookieValue = crypt($email,"itsrainingtacos");
         setcookie("NewsAppAccess", $email, time()+180);  /* expire in 1 hour 3600*/
         setcookie($email, $cookieValue, time()+180);  /* expire in 1 hour */
-        $loggedin = true;
+        $loggedIn = true;
 
         if(!$result)
             die ('Can\'t add user because: ' . $link->error);
@@ -73,7 +88,7 @@
             $cookieValue = crypt($email,"itsrainingtacos");
             setcookie("NewsAppAccess", $email, time()+180);  /* expire in 1 hour 3600*/
             setcookie($email, $cookieValue, time()+180);  /* expire in 1 hour */
-            $loggedin = true;
+            $loggedIn = true;
             header('Location: dashboard.php');
           }
           else
