@@ -39,7 +39,9 @@ if ($link->connect_errno) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="js/main.js"></script>
     <script>
-        
+        $(document).bind('keypress', function(e) { 
+                if(e.keyCode == 13) {e.preventDefault();}
+        });
     </script>
 </head>
 <body>
@@ -118,8 +120,8 @@ if ($link->connect_errno) {
             <div class="cd-user-modal-container"> <!-- this is the container wrapper -->
                 <div id="cd-login"> <!-- log in form -->
                     <form class="cd-form">
-                        <p class="fieldset"><input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail"></p>
-                        <p class="fieldset"><input class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="Password"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="title" name="title" type="text" placeholder="Story Title"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border content" id="content" name="content" type="text" placeholder="Your story goes here."></p>
                         <p class="fieldset"><input class="full-width" type="submit" value="Login"></p>
                     </form>
                 </div>

@@ -93,7 +93,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="js/main.js"></script>
     <script>
-        //$crypted = crypt ( string $str, string $salt);
+
+        $(document).bind('keypress', function(e) { 
+                if(e.keyCode == 13) {e.preventDefault();}
+        });
 
         function validateSignUp() {
             var a = document.forms["signUp"]["fname"].value;
