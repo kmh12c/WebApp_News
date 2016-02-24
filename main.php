@@ -25,7 +25,9 @@ $publishedStories = $link->query("SELECT * FROM stories WHERE approved=1 ORDER B
 if(!$publishedStories){
     die ('Can\'t query stories because: ' . $link->error);
 }
-
+$email = $_COOKIE["NewsAppAccess"];
+$approver = $link->query("SELECT admin FROM users WHERE email = '$email'");
+$row = $approver->fetch_assoc();
 $num_approved = mysqli_num_rows($publishedStories);
 
 ?>
@@ -42,7 +44,11 @@ $num_approved = mysqli_num_rows($publishedStories);
         <div class="header">
             <nav>
                 <ul class="main-nav nav nav-pills pull-right">
-                    <li role="presentation"><a class="cd-signin" href="dashboard.php"> Dashboard</a></li>
+                    <?php
+                    if($row["admin"])
+                    {?>
+                        <li role="presentation"><a class="cd-signin" href="dashboard.php"> Dashboard</a></li><?php
+                    }?>
                     <li role="presentation"><a class="cd-signin" href="index.php"> Sign Out</a></li>
                 </ul>
             </nav>
