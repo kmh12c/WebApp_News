@@ -1,0 +1,16 @@
+.myContainer {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.nav {
+    font-size: 125%;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.story {
+    padding-top: 5%;
+}
