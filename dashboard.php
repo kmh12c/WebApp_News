@@ -1,42 +1,38 @@
 <?php
-    /**************************
-    *
-    * Database Connections
-    *
-    ***************************/
-    $link = new mysqli("localhost","root","","newsAppDB");
 
-    if ($link->connect_errno) {
-        printf("Connect failed: %s\n", $link->connect_error);
-        exit();
-    }
+$loggedIn=false;
+if(isset($_COOKIE["NewsAppAccess"]))
+{
+    $name = $_COOKIE["NewsAppAccess"];
+    $cryptedCookie = $_COOKIE[$name];
+    $cryptedName = crypt($name,"itsrainingtacos");
+    if($cryptedCookie == $cryptedName)
+        $loggedIn = true;
+}
 
-    /**************************
-    *
-    * Database interactions
-    *
-    ***************************/
+if(!$loggedIn){
+    header('Location: index.php');
+}
 
-    $loggedIn=false;
-    if(isset($_COOKIE["NewsAppAccess"]))
-    {
-        $name = $_COOKIE["NewsAppAccess"];
-        $cryptedCookie = $_COOKIE[$name];
-        $cryptedName = crypt($name,"itsrainingtacos");
-        if($cryptedCookie == $cryptedName)
-            $loggedIn = true;
-    }
+/**************************
+*
+* Database Connections
+*
+***************************/
+$link = new mysqli("localhost","root","","NewsAppDB");
 
-    if(!$loggedIn){
-        header('Location: index.php');
-    }
 
-    $action="";
-    if(isset($_POST["action"])){
-        $action=$_POST["action"];
-    }
+if ($link->connect_errno) {
+    printf("Connect failed: %s\n", $link->connect_error);
+    exit();
+}
 
-    if($action == "add_story")
+$action="";
+if(isset($_POST["action"])){
+    $action=$_POST["action"];
+}
+
+if($action == "add_story")
     {
         $title = $_POST["title"];
         $content = $_POST["content"];
