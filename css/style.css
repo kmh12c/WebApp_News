@@ -65,13 +65,13 @@
   padding: 0;
   border-radius: 0.25em;
 }
-.cd-form input.full-width {
+.cd-form input.full-width, textarea {
   width: 100%;
 }
-.cd-form input.has-padding {
+.cd-form input.has-padding, textarea {
   padding: 12px 20px 12px 50px;
 }
-.cd-form input.has-border {
+.cd-form input.has-border, textarea {
   border: 1px solid #d2d8d8;
 }
 .cd-form input.has-border:focus {
