@@ -14,7 +14,7 @@ if(!$loggedIn){
     header('Location: index.php');
 }
 
-$link = new mysqli("localhost","root","","newsAppDB");
+$link = new mysqli("localhost","sMove","k4rensMov3rPr0gr@m2o15","newsAppDB");
 
 if ($link->connect_errno) {
     printf("Connect failed: %s\n", $link->connect_error);
