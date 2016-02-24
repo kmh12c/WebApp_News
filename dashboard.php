@@ -138,6 +138,10 @@ if($action == "add_story")
                     <tbody>
                     </tbody>
                 </table>
+                <div class="main-nav">
+                    <a class="btn btn-primary viewStory cd-signin pull-right" href="#0" role="button">Submit A Story</a>
+                </div>
+
             </div>
         </div>
 
@@ -148,7 +152,7 @@ if($action == "add_story")
                     <form class="cd-form" method="post" action="#">
                         <p class="fieldset"><input class="full-width has-padding has-border" id="title" name="title" type="text" placeholder="Story Title"></p>
                         <p class="fieldset"><input class="full-width has-padding has-border content" id="content" name="content" type="text" placeholder="Your story goes here."></p>
-                        <p class="fieldset"><input class="full-width" type="submit" value="Login"></p>
+                        <p class="fieldset"><input class="full-width" type="submit" value="Submit"></p>
                     </form>
                 </div>
             </div> <!-- cd-user-modal-container -->
