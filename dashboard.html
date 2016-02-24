@@ -11,7 +11,7 @@ if(isset($_COOKIE["NewsAppAccess"]))
 }
 
 if(!$loggedIn){
-    header('Location: index.html');
+    header('Location: index.php');
 }
 
 /**************************
@@ -35,7 +35,7 @@ if ($link->connect_errno) {
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
-    <link href="../WebApp_News/css/dashboard.css" rel="stylesheet">
+    <link href="../NewsSite/css/dashboard.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="js/main.js"></script>
     <script>
