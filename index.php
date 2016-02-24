@@ -14,24 +14,12 @@
         header('Location: dashboard.php');
     }
 
-    /**************************
-    *
-    * Database Connections
-    *
-    ***************************/
     $link = new mysqli("localhost","root","","newsAppDB");
 
     if ($link->connect_errno) {
         printf("Connect failed: %s\n", $link->connect_error);
         exit();
     }
-
-    /*setcookie("NewsAppAccess","",time()-3600);*/
-    /**************************
-    *
-    * Database interactions
-    *
-    ***************************/
 
     if(isset($_REQUEST["action"]))
         $action = $_REQUEST["action"];
@@ -99,12 +87,11 @@
         }
     }
 
-    
     $publishedStories = $link->query("SELECT * FROM stories WHERE approved=1 ORDER BY submitDate");
     if(!$publishedStories){
         die ('Can\'t query stories because: ' . $link->error);
     }
-    
+
     $num_approved = mysqli_num_rows($publishedStories);
     $count = 0;
 ?>

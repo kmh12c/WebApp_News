@@ -14,17 +14,6 @@ if(!$loggedIn){
     header('Location: index.php');
 }
 
-/**************************
-*IT'S RAINING TACOS!!!!!!!!!
-*
-*
-***************************/
-
-/**************************
-*
-* Database Connections
-*
-***************************/
 $link = new mysqli("localhost","root","","newsAppDB");
 
 
@@ -73,7 +62,6 @@ if($action == "add_story")
         if(!$result)
             die ('Can\'t add story because: ' . $link->error);
     }
-
 ?>
 <html lang="en">
 <head>
@@ -132,7 +120,6 @@ if($action == "add_story")
                     <tbody>
                     </tbody>
                 </table>
-
                 <h3>Submitted Stories</h3>
                 <table class="table table-hover storyTable">
                     <thead>
@@ -147,30 +134,28 @@ if($action == "add_story")
                     <?php
                         if ($num_submitted > 0) 
                         {
-                            while( $row = $submittedStories->fetch_assoc()){
-                        ?>
-                        <tr>
-                            <td><?php print($row["name"])?></td>
-                            <td><?php print($row["submitter"])?></td>
-                            <td><?php print($row["submitDate"])?></td>
-                            <td class="main-nav">
-                                <a class="btn btn-xs btn-primary viewStory cd-signin" href="#0" role="button">View Story</a>
-                            </td>
-                            <td>
-                                <form name="approve" action="#"><input type="submit" value="Approve" class="btn btn-xs btn-success"/></form>
-                            </td>
-                        </tr>
-                        <?php
+                            while( $row = $submittedStories->fetch_assoc())
+                            {
+                                ?><tr>
+                                    <td><?php print($row["name"])?></td>
+                                    <td><?php print($row["submitter"])?></td>
+                                    <td><?php print($row["submitDate"])?></td>
+                                    <td class="main-nav">
+                                        <a class="btn btn-xs btn-primary viewStory cd-signin" href="#0" role="button">View Story</a>
+                                    </td>
+                                    <td>
+                                        <form name="approve" action="#"><input type="submit" value="Approve" class="btn btn-xs btn-success"/></form>
+                                    </td>
+                                </tr><?php
                             }
                         }
-                        ?>
+                    ?>
                     <tbody>
                     </tbody>
                 </table>
                 <div class="main-nav">
                     <a class="btn btn-primary viewStory cd-signin pull-right" href="#0" role="button">Submit A Story</a>
                 </div>
-
             </div>
         </div>
 

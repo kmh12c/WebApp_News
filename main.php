@@ -14,24 +14,12 @@ if(!$loggedIn){
     header('Location: index.php');
 }
 
-/**************************
-*IT'S RAINING TACOS!!!!!!!!!
-*
-*
-***************************/
-
-/**************************
-*
-* Database Connections
-*
-***************************/
 $link = new mysqli("localhost","root","","newsAppDB");
 
 if ($link->connect_errno) {
     printf("Connect failed: %s\n", $link->connect_error);
     exit();
 }
-
 
 $publishedStories = $link->query("SELECT * FROM stories WHERE approved=1 ORDER BY submitDate");
 if(!$publishedStories){
@@ -40,16 +28,12 @@ if(!$publishedStories){
 
 $num_approved = mysqli_num_rows($publishedStories);
 
-?><html lang="en">
+?>
+<html lang="en">
 <head>
     <title>My News App</title>
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
     <link href="../WebApp_News/css/main.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="js/main.js"></script>
     <script>
     </script>
 </head>
@@ -70,17 +54,16 @@ $num_approved = mysqli_num_rows($publishedStories);
                 <?php
                     if ($num_approved > 0) 
                     {
-                        while( $row = $publishedStories->fetch_assoc()){
-                    ?>
-                    <div class="story">
-                        <h4><?php print($row["name"])?></h4>
-                        <h5>by <?php print($row["submitter"])?> - <?php print($row["submitDate"])?></h5>
-                        <p><?php print($row["storyText"])?></p>
-                    </div>
-                    <?php
+                        while( $row = $publishedStories->fetch_assoc())
+                        {
+                            ?><div class="story">
+                                <h4><?php print($row["name"])?></h4>
+                                <h5>by <?php print($row["submitter"])?> - <?php print($row["submitDate"])?></h5>
+                                <p><?php print($row["storyText"])?></p>
+                            </div><?php
                         }
                     }
-                    ?>
+                ?>
             </div>
         </div>
         <footer class="footer">
