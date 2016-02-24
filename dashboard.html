@@ -18,26 +18,71 @@
         <div class="header">
             <nav>
                 <ul class="main-nav nav nav-pills pull-right">
-                    <li role="presentation"><a class="cd-signin" href="#0"> Log In or Join Us!</a></li>
+                    <li role="presentation"><a class="cd-dash" href="#0"> Dashboard</a></li>
+                    <li role="presentation"><a class="cd-signin" href="#0"> Sign Out</a></li>
 
                 </ul>
             </nav>
             <h1 class="text-muted"><span class="glyphicon glyphicon-globe"></span> My News App</h1>
         </div>
         <div class="main">
-            <div class="container">
-                <table class="table table-hover">
+            <h1>Story Manager</h1>
+            <div class = "storyManager">
+                <h3>Active Stories</h3>
+                <table class="table table-hover storyTable">
                     <thead>
                       <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Email</th>
+                        <th>Name</th>
+                        <th>Submitted By</th>
+                        <th>Date</th>
+                        <th>Approved By</th>
+                        <th>Story</th>
+                        <th>Deactivate</th>
                       </tr>
                     </thead>
                         <tr>
                             <td>Test</td>
                             <td>Test</td>
                             <td>Test</td>
+                            <td>Test</td>
+                            <td>Test</td>
+                            <td>
+                                <form name="deactivate" action="#"><input type="submit" value="Deactivate" class="btn btn-xs btn-danger"/></form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Test</td>
+                            <td>Test</td>
+                            <td>Test</td>
+                            <td>Test</td>
+                            <td>Test</td>
+                            <td>
+                                <form name="deactivate" action="#"><input type="submit" value="Deactivate" class="btn btn-xs btn-danger"/></form>
+                            </td>
+                        </tr>
+                    <tbody>
+                    </tbody>
+                </table>
+
+                <h3>Submitted Stories</h3>
+                <table class="table table-hover storyTable">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Submitted By</th>
+                        <th>Date</th>
+                        <th>Story</th>
+                        <th>Approve</th>
+                      </tr>
+                    </thead>
+                        <tr>
+                            <td>Test</td>
+                            <td>Test</td>
+                            <td>Test</td>
+                            <td>Test</td>
+                            <td>
+                                <form name="approve" action="#"><input type="submit" value="Approve" class="btn btn-xs btn-success"/></form>
+                            </td>
                         </tr>
                     <tbody>
                     </tbody>

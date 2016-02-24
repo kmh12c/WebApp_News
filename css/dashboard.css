@@ -7,7 +7,6 @@
 
     /*background-image: url(../img/tree.jpg);
     background-size: 100%;*/
-    padding-top: 20%;
     padding-bottom: 15%;
 /*    color: white;*/
 }
@@ -41,4 +40,13 @@
 
 a {
     text-decoration: none !important;
+}
+
+.storyManager{
+  padding-left:5%;
+  padding-right:5%;
+}
+
+.storyTable{
+  margin-bottom:100px;
 }
