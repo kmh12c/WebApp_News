@@ -33,7 +33,11 @@ $num_rows = mysqli_num_rows($isAdmin);
     }
 }
 
-$submittedStories = $link->query("SELECT * FROM stories WHERE approved=0");
+if($admin){
+    $submittedStories = $link->query("SELECT * FROM stories WHERE approved=0");
+}else{
+    $submittedStories = $link->query("SELECT * FROM stories WHERE approved=0 and submitter='$email'");
+}
 if(!$submittedStories){
     die ('Can\'t query users because: ' . $link->error);
 }
