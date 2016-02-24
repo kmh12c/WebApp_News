@@ -19,7 +19,7 @@ if(!$loggedIn){
 * Database Connections
 *
 ***************************/
-$link = new mysqli("localhost","root","","NewsAppDB");
+$link = new mysqli("localhost","root","","newsAppDB");
 
 
 if ($link->connect_errno) {
@@ -34,8 +34,10 @@ if(isset($_POST["action"])){
 
 if($action == "add_story")
     {
+        print("Adding");
         $title = $_POST["title"];
         $content = $_POST["content"];
+        $email = $_COOKIE["NewsAppAccess"];
         
         $title = htmlentities($link->real_escape_string($title));
         $content = htmlentities($link->real_escape_string($content));
@@ -139,7 +141,7 @@ if($action == "add_story")
         <div class="cd-user-modal"> <!-- this is the entire modal form, including the background -->
             <div class="cd-user-modal-container"> <!-- this is the container wrapper -->
                 <div id="cd-login"> <!-- log in form -->
-                    <form class="cd-form">
+                    <form class="cd-form" method="post" action="#">
                         <p class="fieldset"><input class="full-width has-padding has-border" id="title" name="title" type="text" placeholder="Story Title"></p>
                         <p class="fieldset"><textarea class="full-width has-padding has-border content" id="content" name="content" type="text" placeholder="Your story goes here."></textarea></p>
                         <p class="fieldset"><input class="full-width" type="submit" value="Submit"></p>
