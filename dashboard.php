@@ -4,7 +4,7 @@ $loggedIn=false;
 if(isset($_COOKIE["NewsAppAccess"]))
 {
     $name = $_COOKIE["NewsAppAccess"];
-    $cryptedCookie = $_COOKIE["Validate"];
+    $cryptedCookie = $_COOKIE[$name];
     $cryptedName = crypt($name,"itsrainingtacos");
     if($cryptedCookie == $cryptedName)
         $loggedIn = true;
@@ -139,28 +139,13 @@ if($action == "add_story")
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-primary pull-right">Submit New Story</button>
         </div>
 
         <!-- https://codyhouse.co/redirect/?resource=login-signup-modal-window -->
-        <div class="cd-story-modal"> <!-- this is the entire modal form, including the background -->
-            <div class="cd-story-modal-container"> <!-- this is the container wrapper -->
+        <div class="cd-user-modal"> <!-- this is the entire modal form, including the background -->
+            <div class="cd-user-modal-container"> <!-- this is the container wrapper -->
                 <div id="cd-login"> <!-- log in form -->
-                    <form class="cd-story-form" method="post" action="#">
-                        <p class="fieldset"><input class="full-width has-padding has-border" id="title" name="title" type="text" placeholder="Story Title"></p>
-                        <p class="fieldset"><textarea class="full-width has-padding has-border content" id="content" name="content" type="text" placeholder="Your story goes here."></textarea></p>
-                        <p class="fieldset"><input class="full-width" type="submit" value="Submit"></p>
-                        <input type="hidden" name="action" value="add_story">
-                    </form>
-                </div>
-            </div> <!-- cd-user-modal-container -->
-        </div> <!-- cd-user-modal -->
-
-        <!-- https://codyhouse.co/redirect/?resource=login-signup-modal-window -->
-        <div class="cd-view-modal"> <!-- this is the entire modal form, including the background -->
-            <div class="cd-view-modal-container"> <!-- this is the container wrapper -->
-                <div id="cd-view"> <!-- log in form -->
-                    <form class="cd-view-form" method="post" action="#">
+                    <form class="cd-form" method="post" action="#">
                         <p class="fieldset"><input class="full-width has-padding has-border" id="title" name="title" type="text" placeholder="Story Title"></p>
                         <p class="fieldset"><input class="full-width has-padding has-border content" id="content" name="content" type="text" placeholder="Your story goes here."></p>
                         <p class="fieldset"><input class="full-width" type="submit" value="Login"></p>
