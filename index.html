@@ -33,7 +33,7 @@
     else
         $action = "none";
 
-    $message = ""
+    $message = "";
 
     if($action == "add_user")
     {
@@ -56,7 +56,9 @@
 
         if(!$result)
             die ('Can\'t add user because: ' . $link->error);
-        else
+        else{
+            header('Location: dashboard.php');
+        }
     }
     elseif ($action == "login") {
         $email = $_POST["email"];
@@ -98,7 +100,7 @@
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
-    <link href="../WebApp_News/css/frontpg.css" rel="stylesheet">
+    <link href="../NewsSite/css/frontpg.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="js/main.js"></script>
     <script>
