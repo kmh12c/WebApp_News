@@ -70,8 +70,8 @@
           if($row["phrase"] == $password)
           {
             $cookieValue = crypt($email,"itsrainingtacos");
-            setcookie("NewsAppAccess", $email, time()+3600);  /* expire in 1 hour */
-            setcookie($email, $cookieValue, time()+3600);  /* expire in 1 hour */
+            setcookie("NewsAppAccess", $email, time()+180);  /* expire in 1 hour 3600*/
+            setcookie($email, $cookieValue, time()+180);  /* expire in 1 hour */
             $loggedin = true;
             header('Location: dashboard.php');
           }
