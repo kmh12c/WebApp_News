@@ -1,0 +1,40 @@
+.myContainer {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.main {
+
+    background-image: url(../img/tree.jpg);
+    background-size: 100%;
+    padding-top: 20%;
+    height: 700px;
+    color: white;
+}
+
+.container {
+
+    background-color: rgba(48,48,48,.5);
+    text-align: center;
+    border-radius: 25px;
+}
+
+.text {
+    opacity: 1;
+    color: white;
+}
+
+.nav {
+    font-size: 125%;
+}
+
+.cd-user-modal {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+ 
+.cd-user-modal.is-visible {
+  visibility: visible;
+  opacity: 1;
+}
