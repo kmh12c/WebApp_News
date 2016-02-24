@@ -178,7 +178,13 @@ if($action == "add_story")
                         <th>Submitted By</th>
                         <th>Date</th>
                         <th>Story</th>
+                        <?php
+                            if($admin){
+                        ?>
                         <th>Approve</th>
+                        <?php
+                            }
+                        ?>
                       </tr>
                     </thead>
                     <?php
@@ -193,11 +199,17 @@ if($action == "add_story")
                                     <td class="main-nav">
                                         <a class="btn btn-xs btn-primary viewStory cd-signin" href="#0" role="button">View Story</a>
                                     </td>
+                                    <?php
+                                    if($admin){
+                                    ?>
                                     <td>
                                         <form name="approve" action="#" method="post"><input type="submit" value="Approve" class="btn btn-xs btn-success"/>
                                             <input type="hidden" name="id" value = "<?php print($row["id"]);?>"/>
                                             <input type="hidden" name="action" value = "approve"/></form>
                                     </td>
+                                    <?php
+                                    }
+                                    ?>
                                 </tr><?php
                             }
                         }
