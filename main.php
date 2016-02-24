@@ -46,7 +46,7 @@ $num_approved = mysqli_num_rows($publishedStories);
             <nav>
                 <ul class="main-nav nav nav-pills pull-right">
                     <li role="presentation"><a class="cd-signin" href="dashboard.php"> Dashboard</a></li>
-                    <li role="presentation"><a class="cd-signin" href="index.php"> Sign Out</a></li>
+                    <li role="presentation"><a class="cd-signin" href="logOut.php"> Sign Out</a></li>
                 </ul>
             </nav>
             <a href="main.php"><h1 class="text-muted"><span class="glyphicon glyphicon-globe"></span> My News App</h1></a>

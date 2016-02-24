@@ -43,7 +43,7 @@
         $result = $link->query("INSERT INTO users (firstName,lastName,email,phrase,admin) VALUES ('$fname', '$lname', '$email', '$password', 0)");
 
         $cookieValue = crypt($email,"itsrainingtacos");
-        setcookie("NewsAppAccess", $fname.$lname, time()+180);  /* expire in 1 hour 3600*/
+        setcookie("NewsAppAccess", $email, time()+180);  /* expire in 1 hour 3600*/
         setcookie("Validate", $cookieValue, time()+180);  /* expire in 1 hour */
         $loggedIn = true;
 
