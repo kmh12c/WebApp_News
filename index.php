@@ -79,7 +79,6 @@
             die ('Can\'t query users because: ' . $link->error);
 
         $num_rows = mysqli_num_rows($result);
-        print($num_rows);
         if ($num_rows > 0) 
         {
           $row = $result->fetch_assoc();

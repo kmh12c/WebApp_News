@@ -27,6 +27,16 @@ if ($link->connect_errno) {
     exit();
 }
 
+$result = $link->query("SELECT * FROM users WHERE email='$email'");
+if(!$result)
+    die ('Can\'t query users because: ' . $link->error);
+
+$num_rows = mysqli_num_rows($result);
+if ($num_rows > 0) 
+{
+  $row = $result->fetch_assoc();
+}
+
 $action="";
 if(isset($_POST["action"])){
     $action=$_POST["action"];
@@ -71,7 +81,6 @@ if($action == "add_story")
         <div class="header">
             <nav>
                 <ul class="main-nav nav nav-pills pull-right">
-                    <li role="presentation"><a class="cd-dash" href="#0"> Dashboard</a></li>
                     <li role="presentation"><a class="cd-signin" href="index.php"> Sign Out</a></li>
 
                 </ul>
