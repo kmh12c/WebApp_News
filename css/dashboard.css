@@ -50,3 +50,7 @@ a {
 .storyTable{
   margin-bottom:100px;
 }
+
+.cd-form input.content {
+  height: 25%;
+}

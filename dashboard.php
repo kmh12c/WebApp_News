@@ -20,7 +20,6 @@ if(!$loggedIn){
 *
 ***************************/
 
-
 /**************************
 *
 * Database Connections
@@ -34,15 +33,6 @@ if ($link->connect_errno) {
     exit();
 }
 
-$result = $link->query("SELECT * FROM users WHERE email='$email'");
-if(!$result)
-    die ('Can\'t query users because: ' . $link->error);
-
-$num_rows = mysqli_num_rows($result);
-if ($num_rows > 0) 
-{
-  $row = $result->fetch_assoc();
-}
 
 $action="";
 if(isset($_POST["action"])){
@@ -77,9 +67,7 @@ if($action == "add_story")
     <script src="js/main.js"></script>
     <script>
         $(document).bind('keypress', function(e) { 
-            ($("#title").is(':focus')) {
                 if(e.keyCode == 13) {e.preventDefault();}
-            } 
         });
     </script>
 </head>
@@ -174,9 +162,8 @@ if($action == "add_story")
                 <div id="cd-view"> <!-- log in form -->
                     <form class="cd-view-form" method="post" action="#">
                         <p class="fieldset"><input class="full-width has-padding has-border" id="title" name="title" type="text" placeholder="Story Title"></p>
-                        <p class="fieldset"><textarea class="full-width has-padding has-border content" id="content" name="content" type="text" placeholder="Your story goes here."></textarea></p>
-                        <p class="fieldset"><input class="full-width" type="submit" value="Submit"></p>
-                        <input type="hidden" name="action" value="add_story">
+                        <p class="fieldset"><input class="full-width has-padding has-border content" id="content" name="content" type="text" placeholder="Your story goes here."></p>
+                        <p class="fieldset"><input class="full-width" type="submit" value="Login"></p>
                     </form>
                 </div>
             </div> <!-- cd-user-modal-container -->
