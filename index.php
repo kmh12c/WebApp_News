@@ -98,6 +98,14 @@
           $message = "No user $email found!";
         }
     }
+
+    $publishedStories = $link->query("SELECT * FROM stories WHERE approved=1");
+    if(!$publishedStories){
+        die ('Can\'t query stories because: ' . $link->error);
+    }
+
+    $num_approved = mysqli_num_rows($publishedStories);
+    $count = 0;
 ?>
 <html lang="en">
 <head>
@@ -215,22 +223,21 @@
         </div> <!-- cd-user-modal -->
 
         <div class="row marketing">
-            <div class="col-lg-6">
-                <h4>Sample Story</h4>
-                <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-                <h4>Sample Story</h4>
-                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-                <h4>Sample Story</h4>
-                <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-            </div>
-            <div class="col-lg-6">
-                <h4>Sample Story</h4>
-                <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-                <h4>Sample Story</h4>
-                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-                <h4>Sample Story</h4>
-                <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-            </div>
+            <?php
+                if ($num_approved > 0) 
+                {
+                    ?><div class="col-lg-6"><?php
+
+                    while( $row = $publishedStories->fetch_assoc())
+                    { 
+                        ?>
+                        <h4><?php print($row["name"])?></h4>
+                        <p><?php print($row["storyText"])?></p>
+                        <?php
+                    } 
+                    ?></div><?php
+                }
+            ?>
         </div>
         <footer class="footer">
             <p>&copy; Austin Graham and Kayla Holcomb 2016</p>
