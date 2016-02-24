@@ -29,6 +29,13 @@ if(!$submittedStories){
 
 $num_submitted = mysqli_num_rows($submittedStories);
 
+$approvedStories = $link->query("SELECT * FROM stories WHERE approved=1");
+if(!$submittedStories){
+    die ('Can\'t query users because: ' . $link->error);
+}
+
+$num_approved = mysqli_num_rows($approvedStories);
+
 
 $action="";
 if(isset($_POST["action"])){
@@ -47,20 +54,31 @@ if($action == "add_story")
 
         if(!$result)
             die ('Can\'t add story because: ' . $link->error);
+        header('Location: dashboard.php');
     }
 
     if($action == "approve")
     {
-        $title = $_POST["title"];
-        $content = $_POST["content"];
+        $id = $_POST["id"];
         $email = $_COOKIE["NewsAppAccess"];
-        
-        $title = htmlentities($link->real_escape_string($title));
-        $content = htmlentities($link->real_escape_string($content));
-        $result = $link->query("INSERT INTO stories (name,storyText,submitter,approved) VALUES ('$title', '$content', '$email', 1)");//THIS SHOULD BE EDIT QUERY
+        print($id.": Approving");
+        $result = $link->query("UPDATE stories set approved=1, approver='$email' where id = '$id'");//THIS SHOULD BE EDIT QUERY
 
         if(!$result)
             die ('Can\'t add story because: ' . $link->error);
+        header('Location: dashboard.php');
+    }
+
+    if($action == "deactivate")
+    {
+        $id = $_POST["id"];
+        $email = $_COOKIE["NewsAppAccess"];
+        print($id.": Approving");
+        $result = $link->query("UPDATE stories set approved=0, approver='' where id = '$id'");//THIS SHOULD BE EDIT QUERY
+
+        if(!$result)
+            die ('Can\'t add story because: ' . $link->error);
+        header('Location: dashboard.php');
     }
 ?>
 <html lang="en">
@@ -105,18 +123,29 @@ if($action == "add_story")
                         <th>Deactivate</th>
                       </tr>
                     </thead>
-                        <tr>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
+                    <?php
+                        if ($num_approved > 0) 
+                        {
+                            while( $row = $approvedStories->fetch_assoc())
+                            {
+                        ?><tr>
+                            <td><?php print($row["name"])?></td>
+                            <td><?php print($row["submitter"])?></td>
+                            <td><?php print($row["submitDate"])?></td>
+                            <td><?php print($row["approver"])?></td>
                             <td class="main-nav">
                                 <a class="btn btn-xs btn-primary viewStory cd-signin" href="#0" role="button">View Story</a>
                             </td>
                             <td>
-                                <form name="deactivate" action="#"><input type="submit" value="Deactivate" class="btn btn-xs btn-danger"/></form>
+                                <form name="deactivate" action="#" method="post">
+                                    <input type="submit" value="Deactivate" class="btn btn-xs btn-danger"/>
+                                    <input type="hidden" name="id" value = "<?php print($row["id"]);?>"/>
+                                    <input type="hidden" name="action" value = "deactivate"/></form>
                             </td>
                         </tr>
+                        <?php
+                            }
+                        }?>
                     <tbody>
                     </tbody>
                 </table>
@@ -144,7 +173,9 @@ if($action == "add_story")
                                         <a class="btn btn-xs btn-primary viewStory cd-signin" href="#0" role="button">View Story</a>
                                     </td>
                                     <td>
-                                        <form name="approve" action="#"><input type="submit" value="Approve" class="btn btn-xs btn-success"/></form>
+                                        <form name="approve" action="#" method="post"><input type="submit" value="Approve" class="btn btn-xs btn-success"/>
+                                            <input type="hidden" name="id" value = "<?php print($row["id"]);?>"/>
+                                            <input type="hidden" name="action" value = "approve"/></form>
                                     </td>
                                 </tr><?php
                             }
