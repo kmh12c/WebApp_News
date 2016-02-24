@@ -1,4 +1,99 @@
-<!DOCTYPE html>
+<?php
+    /*
+    --Create Database user_db
+    --Import this into phpmyadmin
+
+    CREATE TABLE IF NOT EXISTS `users` (
+      `name` varchar(50) NOT NULL,
+      `id` int(2) NOT NULL AUTO_INCREMENT,
+      PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+    */
+
+    /**************************
+    *
+    * Database Connections
+    *
+    ***************************/
+    $link = new mysqli("localhost","root","","user_db");
+
+    if ($link->connect_errno) {
+        printf("Connect failed: %s\n", $link->connect_error);
+        exit();
+    }
+    /**************************
+    *
+    * Database interactions
+    *
+    ***************************/
+
+    $loggedin = false;
+    if(isset($_COOKIE["AppName"]))
+    {
+        $name = $_COOKIE["AppName"];
+        $cryptedCookie = $_COOKIE[$name];
+        $cryptedName = crypt($name,"ilovetacos");
+        if($cryptedCookie == $cryptedName)
+            $loggedin = true;
+    }
+    else
+        $action = "none";
+
+    if(isset($_REQUEST["action"]))
+        $action = $_REQUEST["action"];
+    else
+        $action = "none";
+
+    $message = "";
+
+    if($action == "add_user")
+    {
+        $name = $_POST["name"];
+        $password = $_POST["password"];
+        
+        $name = htmlentities($link->real_escape_string($name));
+        $password = htmlentities($link->real_escape_string($password));
+        $password = crypt ($password,"ilovetacos");
+        $result = $link->query("INSERT INTO users (name, password) VALUES ('$name', '$password')");
+        if(!$result)
+            die ('Can\'t query users because: ' . $link->error);
+        else
+            $message = "User Added";
+    }
+    elseif ($action == "login") {
+        $name = $_POST["name"];
+        $password = $_POST["password"];
+        
+        $name = htmlentities($link->real_escape_string($name));
+        $password = htmlentities($link->real_escape_string($password));
+        
+        $password = crypt ($password,"ilovetacos");
+        
+        $result = $link->query("SELECT * FROM users WHERE name='$name'");
+        if(!$result)
+            die ('Can\'t query users because: ' . $link->error);
+
+        $num_rows = mysqli_num_rows($result);
+        if ($num_rows > 0) 
+        {
+          $row = $result->fetch_assoc();
+          if($row["password"] == $password)
+          {
+            $message = "User $name Logged in!";
+            $cookieValue = crypt($name,"ilovetacos");
+            setcookie("AppName", $name, time()+3600);  /* expire in 1 hour */
+            setcookie($name, $cookieValue, time()+3600);  /* expire in 1 hour */
+            $loggedin = true;
+          }
+          else
+            $message = "Password for user $name incorrect!";
+        }
+        else {
+          // do something else
+          $message = "No user $name found!";
+        }
+    }
+?>
 <html lang="en">
 <head>
     <title>My News App</title>
@@ -10,6 +105,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="js/main.js"></script>
     <script>
+        //$crypted = crypt ( string $str, string $salt);
+
         function validateSignUp() {
             var a = document.forms["signUp"]["fname"].value;
             if (a == null || a == "") {
