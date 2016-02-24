@@ -11,6 +11,7 @@
         exit();
     }
 
+    /*setcookie("NewsAppAccess","",time()-3600);*/
     /**************************
     *
     * Database interactions
