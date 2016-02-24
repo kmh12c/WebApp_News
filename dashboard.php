@@ -4,7 +4,7 @@ $loggedIn=false;
 if(isset($_COOKIE["NewsAppAccess"]))
 {
     $name = $_COOKIE["NewsAppAccess"];
-    $cryptedCookie = $_COOKIE[$name];
+    $cryptedCookie = $_COOKIE["Validate"];
     $cryptedName = crypt($name,"itsrainingtacos");
     if($cryptedCookie == $cryptedName)
         $loggedIn = true;

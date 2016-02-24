@@ -4,7 +4,7 @@
     if(isset($_COOKIE["NewsAppAccess"]))
     {
         $name = $_COOKIE["NewsAppAccess"];
-        $cryptedCookie = $_COOKIE[$name];
+        $cryptedCookie = $_COOKIE["Validate"];
         $cryptedName = crypt($name,"itsrainingtacos");
         if($cryptedCookie == $cryptedName)
             $loggedIn = true;
@@ -56,7 +56,7 @@
 
         $cookieValue = crypt($email,"itsrainingtacos");
         setcookie("NewsAppAccess", $fname.$lname, time()+180);  /* expire in 1 hour 3600*/
-        setcookie($fname.$lname, $cookieValue, time()+180);  /* expire in 1 hour */
+        setcookie("Validate", $cookieValue, time()+180);  /* expire in 1 hour */
         $loggedIn = true;
 
         if(!$result)
@@ -86,7 +86,7 @@
           {
             $cookieValue = crypt($email,"itsrainingtacos");
             setcookie("NewsAppAccess", $email, time()+180);  /* expire in 1 hour 3600*/
-            setcookie($email, $cookieValue, time()+180);  /* expire in 1 hour */
+            setcookie("Validate", $cookieValue, time()+180);  /* expire in 1 hour */
             $loggedIn = true;
             header('Location: dashboard.php');
           }
