@@ -11,7 +11,7 @@
     }
 
     if($loggedIn){
-        header('Location: dashboard.php');
+        header('Location: main.php');
     }
 
     $link = new mysqli("localhost","root","","newsAppDB");
@@ -50,7 +50,7 @@
         if(!$result)
             die ('Can\'t add user because: ' . $link->error);
         else{
-            header('Location: dashboard.php');
+            header('Location: main.php');
         }
     }
     elseif ($action == "login") {
@@ -76,7 +76,7 @@
             setcookie("NewsAppAccess", $email, time()+180);  /* expire in 1 hour 3600*/
             setcookie("Validate", $cookieValue, time()+180);  /* expire in 1 hour */
             $loggedIn = true;
-            header('Location: dashboard.php');
+            header('Location: main.php');
           }
           else
             $message = "Password for user $email incorrect!";
