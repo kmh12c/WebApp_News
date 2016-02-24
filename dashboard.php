@@ -14,6 +14,18 @@ if(!$loggedIn){
     header('Location: index.php');
 }
 
+if($action == "add_story")
+    {
+        $title = $_POST["title"];
+        $content = $_POST["content"];
+        
+        $title = htmlentities($link->real_escape_string($title));
+        $content = htmlentities($link->real_escape_string($content));
+        $result = $link->query("INSERT INTO stories (name,storyText,submitter,approved) VALUES ('$title', '$content', '$email', 0)");
+
+        if(!$result)
+            die ('Can\'t add story because: ' . $link->error);
+    }
 /**************************
 *
 * Database Connections
@@ -40,7 +52,9 @@ if ($link->connect_errno) {
     <script src="js/main.js"></script>
     <script>
         $(document).bind('keypress', function(e) { 
+            ($("#title").is(':focus')) {
                 if(e.keyCode == 13) {e.preventDefault();}
+            } 
         });
     </script>
 </head>
@@ -121,8 +135,9 @@ if ($link->connect_errno) {
                 <div id="cd-login"> <!-- log in form -->
                     <form class="cd-form">
                         <p class="fieldset"><input class="full-width has-padding has-border" id="title" name="title" type="text" placeholder="Story Title"></p>
-                        <p class="fieldset"><input class="full-width has-padding has-border content" id="content" name="content" type="text" placeholder="Your story goes here."></p>
-                        <p class="fieldset"><input class="full-width" type="submit" value="Login"></p>
+                        <p class="fieldset"><textarea class="full-width has-padding has-border content" id="content" name="content" type="text" placeholder="Your story goes here."></textarea></p>
+                        <p class="fieldset"><input class="full-width" type="submit" value="Submit"></p>
+                        <input type="hidden" name="action" value="add_story">
                     </form>
                 </div>
             </div> <!-- cd-user-modal-container -->
