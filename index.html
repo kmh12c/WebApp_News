@@ -10,7 +10,52 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="js/main.js"></script>
     <script>
+        function validateSignUp() {
+            var a = document.forms["signUp"]["fname"].value;
+            if (a == null || a == "") {
+                alert("First name must be filled out");
+                return false;
+            }
+
+            var b = document.forms["signUp"]["lname"].value;
+            if (b == null || b == "") {
+                alert("Last name must be filled out");
+                return false;
+            }
+
+            var c = document.forms["signUp"]["email"].value;
+            if (c == null || c == "" || !c.includes("@")) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+
+            var d = document.forms["signUp"]["password"].value;
+            if (d == null || d == "") {
+                alert("Please enter a password");
+                return false;
+            }
+
+            var e = document.forms["signUp"]["password2"].value;
+            if (e == null || e == "" || e != d) {
+                alert("Please make sure your passwords match");
+                return false;
+            }
+        }
+
+        function validateSignIn() {
         
+            var c = document.forms["signIn"]["email"].value;
+            if (c == null || c == "" || !c.includes("@")) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+
+            var d = document.forms["signIn"]["password"].value;
+            if (d == null || d == "") {
+                alert("Please enter a password");
+                return false;
+            }
+        }
     </script>
 </head>
 <body>
@@ -43,18 +88,20 @@
                     <li><a href="#0">New Account</a></li>
                 </ul>
                 <div id="cd-login"> <!-- log in form -->
-                    <form class="cd-form">
-                        <p class="fieldset"><input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail"></p>
-                        <p class="fieldset"><input class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="Password"></p>
+                    <form class="cd-form" name="signIn" onsubmit="return validateSignIn()" method="post">
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="email" type="email" placeholder="E-mail"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="password" type="password"  placeholder="Password"></p>
                         <p class="fieldset"><input class="full-width" type="submit" value="Login"></p>
                     </form>
                 </div>
                 <div id="cd-signup"> <!-- sign up form -->
-                    <form class="cd-form">
-                        <p class="fieldset"><input class="full-width has-padding has-border" id="signin-fname" type="text" placeholder="First Name"></p>
-                        <p class="fieldset"><input class="full-width has-padding has-border" id="signin-lname" type="text" placeholder="Last Name"></p>
-                        <p class="fieldset"><input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail"></p>
-                        <p class="fieldset"><input class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="Password"></p>
+                    <form class="cd-form" name="signUp" onsubmit="return validateSignUp()" method="post">
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="fname" type="text" placeholder="First Name"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="lname" type="text" placeholder="Last Name"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="email" type="email" placeholder="E-mail"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="password" type="password"  placeholder="Password"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="password2" type="password"  placeholder="Retype Password"></p>
+
                         <p class="fieldset"><input class="full-width has-padding" type="submit" value="Create Account"></p>
                     </form>
                 </div>
