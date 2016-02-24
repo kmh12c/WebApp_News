@@ -31,6 +31,11 @@
         header('Location: index.php');
     }
 
+    $action="";
+    if(isset($_POST["action"])){
+        $action=$_POST["action"];
+    }
+
     if($action == "add_story")
     {
         $title = $_POST["title"];
