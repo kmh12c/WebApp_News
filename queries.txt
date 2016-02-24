@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users (id int AUTO_INCREMENT, firstName varchar(50) not null, lastName varchar(50) not null, email varchar(50) not null, username varchar(50) not null unique, phrase varchar(200) not null, admin TINYINT(1) not null, joinDate timestamp, lastActive timestamp,primary key(id));
 
-INSERT INTO `users`(`firstName`, `lastName`, `email`, `username`, `phrase`, `admin`) VALUES ('Austin','Graham','arg12c@acu.edu','austingraham','DOtjMSsG/sreY',1);
+INSERT INTO `users`(`firstName`, `lastName`, `email`, `phrase`, `admin`) VALUES ('Austin','Graham','arg12c@acu.edu','DOtjMSsG/sreY',1);
 
 CREATE TABLE IF NOT EXISTS stories (id int AUTO_INCREMENT, name varchar(50) not null, text varchar(500), submitter varchar(50) not null, submitDate timestamp not null, approved TINYINT(1) not null, approveDate timestamp, approver varchar(50),primary key(id));
