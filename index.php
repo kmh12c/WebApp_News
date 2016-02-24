@@ -10,6 +10,7 @@
         printf("Connect failed: %s\n", $link->connect_error);
         exit();
     }
+
     /**************************
     *
     * Database interactions
@@ -38,8 +39,8 @@
         $result = $link->query("INSERT INTO users (firstName,lastName,email,phrase,admin) VALUES ('$fname', '$lname', '$email', '$password', 0)");
 
         $cookieValue = crypt($email,"itsrainingtacos");
-        setcookie("NewsAppAccess", $email, time()+3600);  /* expire in 1 hour */
-        setcookie($email, $cookieValue, time()+3600);  /* expire in 1 hour */
+        setcookie("NewsAppAccess", $email, time()+60);  /* expire in 1 hour 3600*/
+        setcookie($email, $cookieValue, time()+60);  /* expire in 1 hour */
         $loggedin = true;
 
         if(!$result)
@@ -72,6 +73,7 @@
             setcookie("NewsAppAccess", $email, time()+3600);  /* expire in 1 hour */
             setcookie($email, $cookieValue, time()+3600);  /* expire in 1 hour */
             $loggedin = true;
+            header('Location: dashboard.php');
           }
           else
             $message = "Password for user $email incorrect!";
