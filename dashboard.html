@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My News App</title>
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="../WebApp_News/css/dashboard.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        
+    </script>
+</head>
+<body>
+    <div class="myContainer">
+        <div class="header">
+            <nav>
+                <ul class="main-nav nav nav-pills pull-right">
+                    <li role="presentation"><a class="cd-signin" href="#0"> Log In or Join Us!</a></li>
+
+                </ul>
+            </nav>
+            <h1 class="text-muted"><span class="glyphicon glyphicon-globe"></span> My News App</h1>
+        </div>
+        <div class="main">
+            <div class="container">
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Email</th>
+                      </tr>
+                    </thead>
+                        <tr>
+                            <td>Test</td>
+                            <td>Test</td>
+                            <td>Test</td>
+                        </tr>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- https://codyhouse.co/redirect/?resource=login-signup-modal-window -->
+        <div class="cd-user-modal"> <!-- this is the entire modal form, including the background -->
+            <div class="cd-user-modal-container"> <!-- this is the container wrapper -->
+                <ul class="cd-switcher">
+                    <li><a href="#0">Sign In</a></li>
+                    <li><a href="#0">New Account</a></li>
+                </ul>
+                <div id="cd-login"> <!-- log in form -->
+                    <form class="cd-form">
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="Password"></p>
+                        <p class="fieldset"><input class="full-width" type="submit" value="Login"></p>
+                    </form>
+                </div>
+                <div id="cd-signup"> <!-- sign up form -->
+                    <form class="cd-form">
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="signin-fname" type="text" placeholder="First Name"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="signin-lname" type="text" placeholder="Last Name"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail"></p>
+                        <p class="fieldset"><input class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="Password"></p>
+                        <p class="fieldset"><input class="full-width has-padding" type="submit" value="Create Account"></p>
+                    </form>
+                </div>
+            </div> <!-- cd-user-modal-container -->
+        </div> <!-- cd-user-modal -->
+
+        <footer class="footer">
+            <p>&copy; Austin Graham and Kayla Holcomb 2016</p>
+        </footer>
+    </div>
+</body>
+</html>
