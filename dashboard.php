@@ -14,6 +14,19 @@ if(!$loggedIn){
     header('Location: index.php');
 }
 
+/**************************
+*
+* Database Connections
+*
+***************************/
+$link = new mysqli("localhost","root","","NewsAppDB");
+
+
+if ($link->connect_errno) {
+    printf("Connect failed: %s\n", $link->connect_error);
+    exit();
+}
+
 $action="";
 if(isset($_POST["action"])){
     $action=$_POST["action"];
@@ -31,18 +44,6 @@ if($action == "add_story")
         if(!$result)
             die ('Can\'t add story because: ' . $link->error);
     }
-/**************************
-*
-* Database Connections
-*
-***************************/
-$link = new mysqli("localhost","root","","NewsAppDB");
-
-
-if ($link->connect_errno) {
-    printf("Connect failed: %s\n", $link->connect_error);
-    exit();
-}
 
 ?>
 <html lang="en">
