@@ -33,7 +33,7 @@
     else
         $action = "none";
 
-    $message = ""
+    $message = "";
 
     if($action == "add_user")
     {
@@ -57,6 +57,7 @@
         if(!$result)
             die ('Can\'t add user because: ' . $link->error);
         else
+            header('Location: dashboard.php');
     }
     elseif ($action == "login") {
         $email = $_POST["email"];
